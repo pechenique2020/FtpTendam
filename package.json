@@ -1,0 +1,25 @@
+{
+  "name": "ftptendam",
+  "version": "1.0.0",
+  "description": "This is a custom ftp plugin for Tendam Company",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pechenique2020/FtpTendam.git"
+  },
+  "keywords": [
+    "FTP",
+    "TENDAM",
+    "VASS",
+    "ECHENIQUE"
+  ],
+  "author": "Pablo Echenique",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pechenique2020/FtpTendam/issues"
+  },
+  "homepage": "https://github.com/pechenique2020/FtpTendam#readme"
+}

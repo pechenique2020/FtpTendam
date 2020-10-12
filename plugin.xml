@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-ftptendam" version="1.0.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -17,43 +16,7 @@
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml" />
         <source-file src="src/android/FtpTendam.java" target-dir="src/cordova/plugin/ftptendam/FtpTendam" />
-    
         <lib-file src="src/android/libs/ftp4j-1.7.2.jar" />
     </platform>
-
-    <platform name="ios">
-        <config-file parent="/*" target="config.xml">
-            <feature name="FtpTendam">
-                <param name="ios-package" value="FtpTendam" />
-            </feature>
-        </config-file>
-
-        <source-file src="src/ios/FtpTendam.m" />
-
-        <header-file src="src/ios/GoldRaccoon/Sources/GRRequestsManager.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/GRRequestsManager.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/GRRequestsManagerProtocol.h" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRCreateDirectoryRequest.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Requests/GRCreateDirectoryRequest.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRDeleteRequest.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Requests/GRDeleteRequest.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRDownloadRequest.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Requests/GRDownloadRequest.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRListingRequest.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Requests/GRListingRequest.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRRequest.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Requests/GRRequest.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRRequestProtocol.h" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Requests/GRUploadRequest.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Requests/GRUploadRequest.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Utils/GRError.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Utils/GRError.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Utils/GRQueue.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Utils/GRQueue.m" />
-        <header-file src="src/ios/GoldRaccoon/Sources/Utils/GRStreamInfo.h" />
-        <source-file src="src/ios/GoldRaccoon/Sources/Utils/GRStreamInfo.m" />
-
-        <framework src="CFNetwork.framework" />
-    </platform>
-
+    
 </plugin>

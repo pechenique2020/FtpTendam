@@ -84,7 +84,6 @@ public class FtpTendam extends CordovaPlugin {
 
     }
 
-
     private void disconnect(CallbackContext callbackContext) {
         try {
             // `true` to perform a legal disconnect procedure (an QUIT command is sent to the server),
