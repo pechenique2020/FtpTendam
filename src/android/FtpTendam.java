@@ -79,7 +79,6 @@ public class FtpTendam extends CordovaPlugin {
             {
                 remoteDirPath = remoteDirPath.concat("/");
             }
-            console.log("Directorio ",remoteDirPath);
             this.client.changeDirectory(remoteDirPath);
             // this.client.createDirectory(directoryname);
             callbackContext.success("Create directory OK");
