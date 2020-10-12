@@ -20,7 +20,7 @@ public class FtpTendam extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.connect("connect")) {
+        if (action.equals("connect")) {
 
             this.connect(args.getString(0), args.getString(1), args.getString(2), callbackContext);
             return true;
