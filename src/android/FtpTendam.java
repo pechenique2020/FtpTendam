@@ -21,17 +21,14 @@ public class FtpTendam extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("connect")) {
-
             this.connect(args.getString(0), args.getString(1), args.getString(2), callbackContext);
             return true;
 
-        } else if (action.equals("createinventorydir")) {
-
-            this.createinventorydir(args.getString(0), args.getString(1), callbackContext);
+        } else if (action.equals("uploadinventorydir")) {
+            this.uploadinventorydir(args.getString(0), args.getString(1), callbackContext);
             return true;
 
         } else if (action.equals("disconnect")) {
-
             this.disconnect(callbackContext);
             return true;
 
@@ -68,24 +65,33 @@ public class FtpTendam extends CordovaPlugin {
 
     }
 
-    private void createinventorydir(String path, String directoryname, CallbackContext callbackContext) {
-        String remoteDirPath = "/";
-
-        try {
-            if (path != null && path.length() > 0){
-                remoteDirPath = path;
-            }
-            if (!remoteDirPath.endsWith("/"))
-            {
-                remoteDirPath = remoteDirPath.concat("/");
-            }
-            this.client.changeDirectory(remoteDirPath);
-            this.client.createDirectory(directoryname);
-            callbackContext.success("Create directory OK");
-        } catch (Exception e) {
-            callbackContext.error(e.toString());
+    private void uploadinventorydir(String localFile, String remoteFile, CallbackContext callbackContext) {
+        if (localFile == null || remoteFile == null)
+        {
+            System.out.println("Expected localFile and remoteFile.");
         }
+        else
+        {
+            try {
+                // Cambio sobre la versión original
+                // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
+                String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
 
+                String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);                
+                String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') + 1);
+                String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
+                System.out.println("Change directory to " + remoteFilePath);
+                this.client.changeDirectory(remoteFilePath);
+                File file = new File(localFile);
+                InputStream in =  new FileInputStream(file);
+                long size = file.length();
+                System.out.println("Upload file " + remoteFileName);
+                client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
+                // refer to CDVFtpTransferListener for transfer percent and completed
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
     }
 
     private void disconnect(CallbackContext callbackContext) {
