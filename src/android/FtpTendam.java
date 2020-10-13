@@ -75,6 +75,7 @@ public class FtpTendam extends CordovaPlugin {
         if (localFile == null || remoteFile == null)
         {
             System.out.println("Expected localFile and remoteFile.");
+            callbackContext.error("Expected localFile and remoteFile.");
         }
         else
         {
@@ -94,8 +95,10 @@ public class FtpTendam extends CordovaPlugin {
                 System.out.println("Upload file " + remoteFileName);
                 client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
                 // refer to CDVFtpTransferListener for transfer percent and completed
+                callbackContext.success("File upload success");
             } catch (Exception e) {
                 System.out.println(e.toString());
+                callbackContext.error(e.toString());
             }
         }
     }
