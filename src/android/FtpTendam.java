@@ -117,17 +117,14 @@ class CDVFtpTransferListener implements FTPDataTransferListener {
     public static final String TAG = CDVFtpTransferListener.class.getSimpleName();
     private long totalSize = 0;
     private long curSize = 0;
-    private CallbackContext callbackContext = null;
-    private PluginResult pluginResult = null;
 
-    public CDVFtpTransferListener(long size, CallbackContext callbackContext) {
+    public CDVFtpTransferListener(long size) {
         this.totalSize = size;
-        this.callbackContext = callbackContext;
     }
 
     public void started() {
         // Transfer started
-        Log.i(TAG, "Transfer started");
+        System.out.println(TAG + ": Transfer started");
         this.curSize = 0;
     }
 
@@ -136,36 +133,22 @@ class CDVFtpTransferListener implements FTPDataTransferListener {
         // method was called
         this.curSize += length;
         float percent = (float)this.curSize / (float)this.totalSize;
-        Log.d(TAG, "Transferred, totalSize=" + this.totalSize + ", curSize=" + this.curSize + ", percent=" + percent);
+        System.out.println(TAG +  ":Transferred, totalSize=" + this.totalSize + ", curSize=" + this.curSize + ", percent=" + percent);
         // Tip: just return if percent < 1, to prevent js:successCallback() invoked twice, as completed() will also return 1.
-        if (percent >= 0 && percent < 1) {
-            this.pluginResult = new PluginResult(PluginResult.Status.OK, percent);
-            this.pluginResult.setKeepCallback(true);
-            this.callbackContext.sendPluginResult(this.pluginResult);
-        }
     }
 
     public void completed() {
         // Transfer completed
-        Log.i(TAG, "Transfer completed");
-        this.pluginResult = new PluginResult(PluginResult.Status.OK, 1);
-        this.pluginResult.setKeepCallback(false);
-        this.callbackContext.sendPluginResult(this.pluginResult);
+    	System.out.println(TAG + ": Transfer completed");
     }
 
     public void aborted() {
         // Transfer aborted
-        Log.w(TAG, "Transfer aborted");
-        this.pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
-        this.pluginResult.setKeepCallback(false);
-        this.callbackContext.sendPluginResult(this.pluginResult);
+    	System.out.println(TAG + ": Transfer aborted");
     }
 
     public void failed() {
         // Transfer failed
-        Log.e(TAG, "Transfer failed");
-        this.pluginResult = new PluginResult(PluginResult.Status.ERROR);
-        this.pluginResult.setKeepCallback(false);
-        this.callbackContext.sendPluginResult(this.pluginResult);
+    	System.out.println(TAG +  ": Transfer failed");
     }
 }
