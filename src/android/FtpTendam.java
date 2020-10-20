@@ -115,6 +115,13 @@ public class FtpTendam extends CordovaPlugin {
         }
         else
         {
+            try {                
+                client.deleteFile(remoteTargetDir);
+                System.out.println("File deleted ");
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                System.out.println("File not found ");
+            }
             try {
                 String executeCommand = "rename "+remoteSourcetDir+ " "+remoteTargetDir;
                 System.out.println("executeCommand " + executeCommand);
