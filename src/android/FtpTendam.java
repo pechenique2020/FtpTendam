@@ -118,7 +118,7 @@ public class FtpTendam extends CordovaPlugin {
             try {
                 String executeCommand = "rename "+remoteSourcetDir+ " "+remoteTargetDir;
                 System.out.println("executeCommand " + executeCommand);
-                client.sendCustomCommand(executeCommand);
+                this.client.sendCustomCommand(executeCommand);
                
                 callbackContext.success("Directory renaming success");
             } catch (Exception e) {
