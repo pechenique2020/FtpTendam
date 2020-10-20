@@ -108,7 +108,7 @@ public class FtpTendam extends CordovaPlugin {
     }
 
     private void moveinventorydir(String remoteSourcetDir, String remoteTargetDir, CallbackContext callbackContext) {
-        if (localFile == null || remoteFile == null)
+        if (remoteSourcetDir == null || remoteTargetDir == null)
         {
             System.out.println("Expected remoteSourcetDir and remoteTargetDir.");
             callbackContext.error("Expected remoteSourcetDir and remoteTargetDir.");
@@ -120,14 +120,14 @@ public class FtpTendam extends CordovaPlugin {
                 System.out.println("executeCommand " + executeCommand);
                 client.sendCustomCommand(executeCommand);
                
-                callbackContext.success("File upload success");
+                callbackContext.success("Directory renaming success");
             } catch (Exception e) {
                 System.out.println(e.toString());
                 callbackContext.error(e.toString());
             }
         }
     }
-    
+
     private void disconnect(CallbackContext callbackContext) {
         try {
             // `true` to perform a legal disconnect procedure (an QUIT command is sent to the server),
