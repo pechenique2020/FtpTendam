@@ -123,7 +123,15 @@ public class FtpTendam extends CordovaPlugin {
             try {
 
                 client.sendSiteCommand("ls");
-                client.sendSiteCommand("delete INVTRX/I923280099.@I923280099");
+                
+                try {                
+                    client.sendSiteCommand("delete INVTRX/I923280099.@I923280099");
+                    System.out.println("File deleted ");
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                    System.out.println("File not found ");
+                }
+                
                 client.sendSiteCommand("put /storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt INVTRX/I923280099.@I923280099");
  
                 // // Cambio sobre la versión original
