@@ -85,8 +85,8 @@ public class FtpTendam extends CordovaPlugin {
             callbackContext.error("Expected localFile and remoteFile.");
         } else {
             try {
-                client.setType(FTPClient.TYPE_TEXTUAL);
-                
+                client.setType(FTPClient.TYPE_BINARY);
+
                 // Cambio sobre la versión original
                 // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') +
                 // 1);
@@ -118,7 +118,7 @@ public class FtpTendam extends CordovaPlugin {
         } else {
             try {
 
-                client.setType(FTPClient.TYPE_TEXTUAL);
+                client.setType(FTPClient.TYPE_BINARY);
                 client.sendSiteCommand("ls");
 
                 try {
