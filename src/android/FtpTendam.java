@@ -123,7 +123,8 @@ public class FtpTendam extends CordovaPlugin {
             try {
 
                 System.out.println("ls " + client.sendCustomCommand("ls"));
-                System.out.println("ls " + client.sendCustomCommand("put /storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt INVTRX/I923280064.@I923280064"));
+                System.out.println("put " + client.sendCustomCommand("delete INVTRX/I923280099.@I923280099"));
+                System.out.println("put " + client.sendCustomCommand("put /storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt INVTRX/I923280099.@I923280099"));
  
                 // // Cambio sobre la versión original
                 // // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
