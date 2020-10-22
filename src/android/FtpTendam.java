@@ -117,6 +117,7 @@ public class FtpTendam extends CordovaPlugin {
         } else {
             try {
 
+                client.setType(FTPClient.TYPE_TEXTUAL);
                 client.sendSiteCommand("ls");
 
                 try {
