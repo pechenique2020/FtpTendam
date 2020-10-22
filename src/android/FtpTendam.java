@@ -85,7 +85,8 @@ public class FtpTendam extends CordovaPlugin {
             callbackContext.error("Expected localFile and remoteFile.");
         } else {
             try {
-
+                client.setType(FTPClient.TYPE_TEXTUAL);
+                
                 // Cambio sobre la versión original
                 // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') +
                 // 1);
@@ -128,8 +129,7 @@ public class FtpTendam extends CordovaPlugin {
                     System.out.println("File not found ");
                 }
 
-                File file = new File(
-                        "/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt");
+                File file = new File("/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt");
                 InputStream in = new FileInputStream(file);
                 long size = file.length();
 
