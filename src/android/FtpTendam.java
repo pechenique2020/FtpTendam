@@ -85,7 +85,7 @@ public class FtpTendam extends CordovaPlugin {
         {
             try {
 
-                String localTempFile = "/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/import/inventarios-test.txt";
+                String localTempFile = "/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt";
                 System.out.println("Temp file " + localTempFile);
 
                 // Cambio sobre la versión original
