@@ -34,6 +34,10 @@ public class FtpTendam extends CordovaPlugin {
             this.uploadinventorydir(args.getString(0), args.getString(1), callbackContext);
             return true;
 
+        } else if (action.equals("uploadinventoryfile")) {
+            this.uploadinventoryfile(args.getString(0), args.getString(1), callbackContext);
+            return true;
+
         } else if (action.equals("moveinventorydir")) {
             this.moveinventorydir(args.getString(0), args.getString(1), callbackContext);
             return true;
@@ -85,9 +89,6 @@ public class FtpTendam extends CordovaPlugin {
         {
             try {
 
-                String localTempFile = "/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt";
-                System.out.println("Temp file " + localTempFile);
-
                 // Cambio sobre la versión original
                 // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
                 String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
@@ -97,13 +98,48 @@ public class FtpTendam extends CordovaPlugin {
                 String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
                 System.out.println("Change directory to " + remoteFilePath);
                 this.client.changeDirectory(remoteFilePath);
-                // File file = new File(localFile);
-                File file = new File(localTempFile);
+                File file = new File(localFile);
                 InputStream in =  new FileInputStream(file);
                 long size = file.length();
                 System.out.println("Upload file " + remoteFileName);
                 client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
                 // refer to CDVFtpTransferListener for transfer percent and completed
+                callbackContext.success("File upload success");
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                callbackContext.error(e.toString());
+            }
+        }
+    }
+
+    private void uploadinventoryfile(String localFile, String remoteFile, CallbackContext callbackContext) {
+        if (localFile == null || remoteFile == null)
+        {
+            System.out.println("Expected localFile and remoteFile.");
+            callbackContext.error("Expected localFile and remoteFile.");
+        }
+        else
+        {
+            try {
+
+                System.out.println("ls " + client.sendCustomCommand("ls"));
+                System.out.println("ls " + client.sendCustomCommand("put /storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt INVTRX/I923280064.@I923280064"));
+ 
+                // // Cambio sobre la versión original
+                // // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
+                // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
+
+                // String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);                
+                // String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') + 1);
+                // String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
+                // System.out.println("Change directory to " + remoteFilePath);
+                // this.client.changeDirectory(remoteFilePath);
+                // File file = new File(localFile);
+                // InputStream in =  new FileInputStream(file);
+                // long size = file.length();
+                // System.out.println("Upload file " + remoteFileName);
+                // client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
+                // // refer to CDVFtpTransferListener for transfer percent and completed
                 callbackContext.success("File upload success");
             } catch (Exception e) {
                 System.out.println(e.toString());
