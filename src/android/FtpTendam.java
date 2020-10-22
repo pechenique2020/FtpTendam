@@ -84,6 +84,10 @@ public class FtpTendam extends CordovaPlugin {
         else
         {
             try {
+
+                String localTempFile = "/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/import/inventarios-test.txt";
+                System.out.println("Temp file " + zlocalTempFile);
+
                 // Cambio sobre la versión original
                 // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
                 String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
@@ -93,7 +97,8 @@ public class FtpTendam extends CordovaPlugin {
                 String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
                 System.out.println("Change directory to " + remoteFilePath);
                 this.client.changeDirectory(remoteFilePath);
-                File file = new File(localFile);
+                // File file = new File(localFile);
+                File file = new File(localTempFile);
                 InputStream in =  new FileInputStream(file);
                 long size = file.length();
                 System.out.println("Upload file " + remoteFileName);
