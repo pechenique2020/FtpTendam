@@ -134,12 +134,12 @@ public class FtpTendam extends CordovaPlugin {
 
                 try {
                     client.upload("INVTRX/I923280099.@923280099", in, 0, 0, new CDVFtpTransferListener(size));
-                    client.rename("INVTRX/I923280099.@923280099", "INVTRX/I923280099.@I23280099");
+                    client.rename("INVTRX/I923280099.@923280099", "INVTRX/I923280099.I923280099");
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("File not found ");
                 }
-                
+
                 // // Cambio sobre la versión original
                 // // String remoteFilePath = remoteFile.substring(0,
                 // remoteFile.lastIndexOf('/') + 1);
