@@ -80,26 +80,24 @@ public class FtpTendam extends CordovaPlugin {
     }
 
     private void uploadinventorydir(String localFile, String remoteFile, CallbackContext callbackContext) {
-        if (localFile == null || remoteFile == null)
-        {
+        if (localFile == null || remoteFile == null) {
             System.out.println("Expected localFile and remoteFile.");
             callbackContext.error("Expected localFile and remoteFile.");
-        }
-        else
-        {
+        } else {
             try {
 
                 // Cambio sobre la versión original
-                // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
+                // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') +
+                // 1);
                 String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
 
-                String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);                
+                String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);
                 String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') + 1);
                 String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
                 System.out.println("Change directory to " + remoteFilePath);
                 this.client.changeDirectory(remoteFilePath);
                 File file = new File(localFile);
-                InputStream in =  new FileInputStream(file);
+                InputStream in = new FileInputStream(file);
                 long size = file.length();
                 System.out.println("Upload file " + remoteFileName);
                 client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
@@ -113,42 +111,49 @@ public class FtpTendam extends CordovaPlugin {
     }
 
     private void uploadinventoryfile(String localFile, String remoteFile, CallbackContext callbackContext) {
-        if (localFile == null || remoteFile == null)
-        {
+        if (localFile == null || remoteFile == null) {
             System.out.println("Expected localFile and remoteFile.");
             callbackContext.error("Expected localFile and remoteFile.");
-        }
-        else
-        {
+        } else {
             try {
 
                 client.sendSiteCommand("ls");
 
-                try {                
-                    client.deleteFile("INVTRX/I923280099.@I923280099");
+                try {
+                    client.deleteFile("INVTRX/I923280099.@923280099");
                     System.out.println("File deleted ");
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("File not found ");
                 }
-                
-                File file = new File("/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt");
-                InputStream in =  new FileInputStream(file);
+
+                File file = new File(
+                        "/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt");
+                InputStream in = new FileInputStream(file);
                 long size = file.length();
 
-                client.upload("INVTRX/I923280099.@I923280099", in, 0, 0, new CDVFtpTransferListener(size));
-
+                try {
+                    client.upload("INVTRX/I923280099.@923280099", in, 0, 0, new CDVFtpTransferListener(size));
+                    client.rename("INVTRX/I923280099.@923280099", "INVTRX/I923280099.@I23280099");
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                    System.out.println("File not found ");
+                }
+                
                 // // Cambio sobre la versión original
-                // // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/') + 1);
+                // // String remoteFilePath = remoteFile.substring(0,
+                // remoteFile.lastIndexOf('/') + 1);
                 // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
 
-                // String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);                
-                // String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') + 1);
+                // String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') +
+                // 1);
+                // String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') +
+                // 1);
                 // String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
                 // System.out.println("Change directory to " + remoteFilePath);
                 // this.client.changeDirectory(remoteFilePath);
                 // File file = new File(localFile);
-                // InputStream in =  new FileInputStream(file);
+                // InputStream in = new FileInputStream(file);
                 // long size = file.length();
                 // System.out.println("Upload file " + remoteFileName);
                 // client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
@@ -162,14 +167,11 @@ public class FtpTendam extends CordovaPlugin {
     }
 
     private void moveinventorydir(String remoteSourcetDir, String remoteTargetDir, CallbackContext callbackContext) {
-        if (remoteSourcetDir == null || remoteTargetDir == null)
-        {
+        if (remoteSourcetDir == null || remoteTargetDir == null) {
             System.out.println("Expected remoteSourcetDir and remoteTargetDir.");
             callbackContext.error("Expected remoteSourcetDir and remoteTargetDir.");
-        }
-        else
-        {
-            try {                
+        } else {
+            try {
                 client.deleteFile(remoteTargetDir);
                 System.out.println("File deleted ");
             } catch (Exception e) {
@@ -177,10 +179,10 @@ public class FtpTendam extends CordovaPlugin {
                 System.out.println("File not found ");
             }
             try {
-                String executeCommand = "rename "+remoteSourcetDir+ " "+remoteTargetDir;
+                String executeCommand = "rename " + remoteSourcetDir + " " + remoteTargetDir;
                 System.out.println("executeCommand " + executeCommand);
-                client.rename(remoteSourcetDir,remoteTargetDir);
-               
+                client.rename(remoteSourcetDir, remoteTargetDir);
+
                 callbackContext.success("Directory renamed success");
             } catch (Exception e) {
                 System.out.println(e.toString());
@@ -191,7 +193,8 @@ public class FtpTendam extends CordovaPlugin {
 
     private void disconnect(CallbackContext callbackContext) {
         try {
-            // `true` to perform a legal disconnect procedure (an QUIT command is sent to the server),
+            // `true` to perform a legal disconnect procedure (an QUIT command is sent to
+            // the server),
             // `false` to break the connection without advice.
             this.client.disconnect(true);
             callbackContext.success("Disconnect OK.");
@@ -221,23 +224,25 @@ class CDVFtpTransferListener implements FTPDataTransferListener {
         // Yet other length bytes has been transferred since the last time this
         // method was called
         this.curSize += length;
-        float percent = (float)this.curSize / (float)this.totalSize;
-        System.out.println(TAG +  ":Transferred, totalSize=" + this.totalSize + ", curSize=" + this.curSize + ", percent=" + percent);
-        // Tip: just return if percent < 1, to prevent js:successCallback() invoked twice, as completed() will also return 1.
+        float percent = (float) this.curSize / (float) this.totalSize;
+        System.out.println(TAG + ":Transferred, totalSize=" + this.totalSize + ", curSize=" + this.curSize
+                + ", percent=" + percent);
+        // Tip: just return if percent < 1, to prevent js:successCallback() invoked
+        // twice, as completed() will also return 1.
     }
 
     public void completed() {
         // Transfer completed
-    	System.out.println(TAG + ": Transfer completed");
+        System.out.println(TAG + ": Transfer completed");
     }
 
     public void aborted() {
         // Transfer aborted
-    	System.out.println(TAG + ": Transfer aborted");
+        System.out.println(TAG + ": Transfer aborted");
     }
 
     public void failed() {
         // Transfer failed
-    	System.out.println(TAG +  ": Transfer failed");
+        System.out.println(TAG + ": Transfer failed");
     }
 }
