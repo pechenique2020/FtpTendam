@@ -79,6 +79,31 @@ public class FtpTendam extends CordovaPlugin {
 
     }
 
+    private void uploadFile(String localFile, String remoteFile, CallbackContext callbackContext) {
+        if (localFile == null || remoteFile == null)
+        {
+            callbackContext.error("Expected localFile and remoteFile.");
+        }
+        else
+        {
+            try {
+                String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
+                String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);
+                String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') + 1);
+                String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
+                this.client.changeDirectory(remoteFilePath);
+                File file = new File(localFile);
+                InputStream in =  new FileInputStream(file);
+                long size = file.length();
+                client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size, callbackContext));
+                // refer to CDVFtpTransferListener for transfer percent and completed
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                callbackContext.error(e.toString());
+            }
+        }
+    }
+
     private void uploadinventorydir(String localFile, String remoteFile, CallbackContext callbackContext) {
         if (localFile == null || remoteFile == null) {
             System.out.println("Expected localFile and remoteFile.");

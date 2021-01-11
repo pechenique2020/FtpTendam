@@ -4,6 +4,10 @@ exports.connect = function (arg1, arg2, arg3, success, error) {
     exec(success, error, 'FtpTendam', 'connect', [arg1,arg2,arg3]);
 };
 
+exports.uploadFile = function (arg1, arg2, success, error) {
+    exec(success, error, 'FtpTendam', 'uploadinventorydir', [arg1,arg2]);
+};
+
 exports.uploadinventorydir = function (arg1, arg2, success, error) {
     exec(success, error, 'FtpTendam', 'uploadinventorydir', [arg1,arg2]);
 };
