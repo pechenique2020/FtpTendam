@@ -95,7 +95,7 @@ public class FtpTendam extends CordovaPlugin {
                 File file = new File(localFile);
                 InputStream in =  new FileInputStream(file);
                 long size = file.length();
-                client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size, callbackContext));
+                client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
                 // refer to CDVFtpTransferListener for transfer percent and completed
             } catch (Exception e) {
                 System.out.println(e.toString());
