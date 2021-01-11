@@ -30,6 +30,13 @@ export declare class FtpTendam extends IonicNativePlugin {
      */
     connect(arg1: string, arg2: string, arg3: string): Promise<any>;
     /**
+    * This function upload with ftp server
+    * @param arg1 {string} remotePath
+    * @param arg2 {string} Directory Name
+    * @return {Promise<any>} Returns a promise that resolves when something happens
+    */
+    uploadFile(arg1: string, arg2: string): Promise<any>;
+    /**
     * This function create directory with ftp server
     * @param arg1 {string} remotePath
     * @param arg2 {string} Directory Name
@@ -51,11 +58,11 @@ export declare class FtpTendam extends IonicNativePlugin {
     */
     uploadinventoryfile(arg1: string, arg2: string): Promise<any>;
     /**
-  * This function rename folder with ftp server
-  * @param arg1 {string} remotePath
-  * @param arg2 {string} Directory Name
-  * @return {Promise<any>} Returns a promise that resolves when something happens
-  */
+    * This function rename folder with ftp server
+    * @param arg1 {string} remotePath
+    * @param arg2 {string} Directory Name
+    * @return {Promise<any>} Returns a promise that resolves when something happens
+    */
     moveinventorydir(arg1: string, arg2: string): Promise<any>;
     /**
     * This function disconnect from the ftp server
