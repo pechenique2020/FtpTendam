@@ -8,12 +8,12 @@ exports.uploadFile = function (arg1, arg2, success, error) {
     exec(success, error, 'FtpTendam', 'uploadinventorydir', [arg1,arg2]);
 };
 
-exports.uploadinventorydir = function (arg1, arg2, success, error) {
-    exec(success, error, 'FtpTendam', 'uploadinventorydir', [arg1,arg2]);
+exports.findinventorydir = function (arg1, success, error) {
+    exec(success, error, 'FtpTendam', 'findinventorydir', [arg1]);
 };
 
-exports.uploadinventoryfile = function (arg1, arg2, success, error) {
-    exec(success, error, 'FtpTendam', 'uploadinventoryfile', [arg1,arg2]);
+exports.uploadinventorydir = function (arg1, arg2, success, error) {
+    exec(success, error, 'FtpTendam', 'uploadinventorydir', [arg1,arg2]);
 };
 
 exports.moveinventorydir = function (arg1, arg2, success, error) {

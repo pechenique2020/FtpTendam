@@ -104,6 +104,24 @@ public class FtpTendam extends CordovaPlugin {
         }
     }
 
+    private void findinventorydir(String remoteSourcetDir, CallbackContext callbackContext) {
+        if (remoteSourcetDir == null) {
+            System.out.println("Expected remoteSourcetDir");
+            callbackContext.error("Expected remoteSourcetDir");
+        } else {
+            try {
+                java.util.Date remoteDirectoryupdate = client.modifiedDate(remoteSourcetDir);
+                System.out.println("Directory found");
+                System.out.println(remoteDirectoryupdate);
+                callbackContext.success(remoteDirectoryupdate);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                System.out.println("Directory not found ");
+                callbackContext.error(e.toString());
+            }
+        }
+    }
+
     private void uploadinventorydir(String localFile, String remoteFile, CallbackContext callbackContext) {
         if (localFile == null || remoteFile == null) {
             System.out.println("Expected localFile and remoteFile.");
@@ -128,62 +146,6 @@ public class FtpTendam extends CordovaPlugin {
                 System.out.println("Upload file " + remoteFileName);
                 client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
                 // refer to CDVFtpTransferListener for transfer percent and completed
-                callbackContext.success("File upload success");
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                callbackContext.error(e.toString());
-            }
-        }
-    }
-
-    private void uploadinventoryfile(String localFile, String remoteFile, CallbackContext callbackContext) {
-        if (localFile == null || remoteFile == null) {
-            System.out.println("Expected localFile and remoteFile.");
-            callbackContext.error("Expected localFile and remoteFile.");
-        } else {
-            try {
-
-                client.setType(FTPClient.TYPE_TEXTUAL);
-                client.sendSiteCommand("ls");
-
-                try {
-                    client.deleteFile("INVTRX/I923280099.@923280099");
-                    System.out.println("File deleted ");
-                } catch (Exception e) {
-                    System.out.println(e.toString());
-                    System.out.println("File not found ");
-                }
-
-                File file = new File("/storage/emulated/0/Android/data/es.tendam.temisappmerch/files/importdata/inventarios-test.txt");
-                InputStream in = new FileInputStream(file);
-                long size = file.length();
-
-                try {
-                    client.upload("INVTRX/I923280099.@923280099", in, 0, 0, new CDVFtpTransferListener(size));
-                    client.rename("INVTRX/I923280099.@923280099", "INVTRX/I923280099.I923280099");
-                } catch (Exception e) {
-                    System.out.println(e.toString());
-                    System.out.println("File not found ");
-                }
-
-                // // Cambio sobre la versión original
-                // // String remoteFilePath = remoteFile.substring(0,
-                // remoteFile.lastIndexOf('/') + 1);
-                // String remoteFilePath = remoteFile.substring(0, remoteFile.lastIndexOf('/'));
-
-                // String remoteFileName = remoteFile.substring(remoteFile.lastIndexOf('/') +
-                // 1);
-                // String localFilePath = localFile.substring(0, localFile.lastIndexOf('/') +
-                // 1);
-                // String localFileName = localFile.substring(localFile.lastIndexOf('/') + 1);
-                // System.out.println("Change directory to " + remoteFilePath);
-                // this.client.changeDirectory(remoteFilePath);
-                // File file = new File(localFile);
-                // InputStream in = new FileInputStream(file);
-                // long size = file.length();
-                // System.out.println("Upload file " + remoteFileName);
-                // client.upload(remoteFileName, in, 0, 0, new CDVFtpTransferListener(size));
-                // // refer to CDVFtpTransferListener for transfer percent and completed
                 callbackContext.success("File upload success");
             } catch (Exception e) {
                 System.out.println(e.toString());
