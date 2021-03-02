@@ -5,7 +5,7 @@ exports.connect = function (arg1, arg2, arg3, success, error) {
 };
 
 exports.uploadFile = function (arg1, arg2, success, error) {
-    exec(success, error, 'FtpTendam', 'uploadinventorydir', [arg1,arg2]);
+    exec(success, error, 'FtpTendam', 'uploadFile', [arg1,arg2]);
 };
 
 exports.findinventorydir = function (arg1, success, error) {
