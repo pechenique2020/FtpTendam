@@ -113,7 +113,7 @@ public class FtpTendam extends CordovaPlugin {
                 java.util.Date remoteDirectoryupdate = client.modifiedDate(remoteSourcetDir);
                 System.out.println("Directory found");
                 System.out.println(remoteDirectoryupdate);
-                callbackContext.success(remoteDirectoryupdate);
+                callbackContext.success("remoteDirectoryupdate");
             } catch (Exception e) {
                 System.out.println(e.toString());
                 System.out.println("Directory not found ");
