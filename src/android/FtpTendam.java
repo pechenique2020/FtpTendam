@@ -34,8 +34,8 @@ public class FtpTendam extends CordovaPlugin {
             this.uploadinventorydir(args.getString(0), args.getString(1), callbackContext);
             return true;
 
-        } else if (action.equals("uploadinventoryfile")) {
-            this.uploadinventoryfile(args.getString(0), args.getString(1), callbackContext);
+        } else if (action.equals("uploadFile")) {
+            this.uploadFile(args.getString(0), args.getString(1), callbackContext);
             return true;
 
         } else if (action.equals("moveinventorydir")) {
